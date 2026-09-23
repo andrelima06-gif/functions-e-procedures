@@ -1,0 +1,22 @@
+
+CREATE TABLE CLIENTE(
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  NOME_COMPLETO  VARCHAR(255) NOT NULL,
+  CIDADE VARCHAR(255) NOT NULL,
+  ESTADO CHAR(2) NOT NULL
+);
+
+INSERT INTO CLIENTE ( NOME_COMPLETO, CIDADE, ESTADO) VALUES
+
+("Miguel Hanisch", "Ponta Grossa", "PR"),
+("Joaquim Francisco", "Belo Horizonte", "MG"),
+("Angela Marchinski", "Cuiabá", "MT"),
+("Reinaldo Palhano", "Goiânia", "GO"),
+("Andre Alves", "Ponta Grossa", "PR");
+
+CREATE VIEW vw_cliente_pr AS  
+SELECT ID, NOME_COMPLETO, CIDADE
+FROM CLIENTE
+WHERE ESTADO = 'PR';
+
+SELECT * FROM vw_cliente_pr;

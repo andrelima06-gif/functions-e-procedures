@@ -1,0 +1,44 @@
+CREATE TABLE VENDEDOR(
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  NOME_COMPLETO VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE VENDA(
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  VENDEDOR_ID INT,
+  VALOR DECIMAL (10,2) NOT NULL,
+  DATA_VENDA DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (VENDEDOR_ID) REFERENCES VENDEDOR(ID)
+);
+
+INSERT INTO VENDEDOR (NOME_COMPLETO) VALUES
+("Carlos Eduardo"),
+("Beatriz Lima"),
+("Lucas Ferreira");
+
+INSERT INTO VENDA (VENDEDOR_ID, VALOR) VALUES
+(1, 650.00 ),
+(1, 410.00 ),
+(1, 920.00 ),
+(2, 280.00 ),
+(2, 750.00 ),
+(2, 510.00 ),
+(2, 830.00 ),
+(3, 310.00 ),
+(3, 890.00 ),
+(3, 450.00 );
+
+
+CREATE VIEW vw_desempenho_vendedores AS
+SELECT
+    v.nome_completo AS nome_vendedor,
+    COUNT(vd.id) AS quantidade_venda,
+    SUM(vd.valor) AS valor_total_vendido,
+    AVG(vd.valor) AS valor_medio_venda,
+    MAX(vd.valor) AS maior_venda
+FROM VENDEDOR v
+JOIN VENDA vd ON vd.vendedor_id = v.id
+GROUP BY v.id, v.nome_completo;
+
+SELECT * FROM vw_desempenho_vendedores;
